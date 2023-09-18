@@ -4,7 +4,10 @@
 // @version      1.0
 // @description  You know what is this addon for.
 // @author       weboos
-// @match        https://bondage-europe.com/R96/BondageClub/
+// @match        https://bondageprojects.elementfx.com/*
+// @match        https://www.bondageprojects.elementfx.com/*
+// @match        https://bondage-europe.com/*
+// @match        https://www.bondage-europe.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=bondage-europe.com
 // @grant        none
 // ==/UserScript==
