@@ -17,7 +17,7 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 }
 
-var code = httpGet("http://127.0.0.1:5500/brbd.js")
+var code = httpGet("https://raw.githubusercontent.com/ciberweaboo/brbd/main/brbd.js")
 const script= document.createElement("script")
 script.type = "text/javascript"
 script.innerHTML = code
