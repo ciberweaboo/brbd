@@ -10,17 +10,8 @@
 // @grant        none
 // ==/UserScript==
 
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false);
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
-}
-
-var code = httpGet("https://raw.githubusercontent.com/ciberweaboo/brbd/main/brbd.js")
-const script= document.createElement("script")
-script.type = "text/javascript"
-script.innerHTML = code
-document.head.appendChild(script)
-eval(script)
+(function () {
+    "use strict";
+    
+    javascript:void function(){function httpGet(a){var b=new XMLHttpRequest;return b.open("GET",a,!1),b.send(null),b.responseText}var code=httpGet("https://raw.githubusercontent.com/ciberweaboo/brbd/main/brbd.js");const script=document.createElement("script");script.type="text/javascript",script.innerHTML=code,document.head.appendChild(script),eval(script)}();
+})();
