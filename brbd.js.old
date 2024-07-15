@@ -5,105 +5,33 @@ var bcModSdk=function(){"use strict";const o="1.2.0";function e(o){alert("Mod ER
 
 var BRBD = bcModSdk.registerMod({
 	name: 'BRBD',
-	fullName: 'BCX Reset Button Disabler v2',
-	version: '2.0',
+	fullName: 'BCX Reset Button Disabler',
+	version: '1.0.0',
 	repository: 'https://github.com/ciberweaboo/brbd',
 });
 
-function hooks() {
-    BRBD.hookFunction("DrawButton", -100, (args, next) => {
-        if (JSON.stringify(args) === JSON.stringify([1490, 800, 300, 90, "Clear all BCX data", "#FF3232", "", "Emergency reset of BCX"]))
-        {
-            DrawButton(1490, 800, 300, 90, "Blocked", "#C4C4C4", "", "BCX Reset Button Disabler is Enabled");
-            return;
-        };
-        if (JSON.stringify(args) === JSON.stringify([120, 200, 400, 90, "Manage BCX modules", "White", "", "Enable/Disable individual modules"]))
-        {
-            DrawButton(120, 200, 400, 90, "Blocked", "#C4C4C4", "", "BCX Reset Button Disabler is Enabled");
-            return;
-        };
-        return next(args);
-    });
-    
-    BRBD.hookFunction("MouseIn", -100, (args, next) => {
-        if (JSON.stringify(args) === JSON.stringify([1490, 800, 300, 90]))
-        {
-            return;
-        };
-        if (JSON.stringify(args) === JSON.stringify([120, 200, 400, 90])) {
-            return;
-        }
-        return next(args);
-    });
-}
+brbd.hookFunction("DrawButton", -100, (args, next) => {
+    if (JSON.stringify(args) === JSON.stringify([1490, 800, 300, 90, "Clear all BCX data", "#FF3232", "", "Emergency reset of BCX"]))
+    {
+        DrawButton(1490, 800, 300, 90, "Blocked", "#C4C4C4", "", "BCX Reset Button Disabler is Enabled");
+        return;
+    };
+    if (JSON.stringify(args) === JSON.stringify([120, 200, 400, 90, "Manage BCX modules", "White", "", "Enable/Disable individual modules"]))
+    {
+        DrawButton(120, 200, 400, 90, "Blocked", "#C4C4C4", "", "BCX Reset Button Disabler is Enabled");
+        return;
+    };
+    return next(args);
+});
 
-function initWait() {
-    if (CurrentScreen == null || CurrentScreen === "Login") {
-        BRBD.hookFunction("LoginResponse", 0, (args, next) => {
-            next(args);
-            const response = args[0];
-            if (response && typeof response.Name === "string" && typeof response.AccountName === "string") {
-                init();
-            }
-        });
-    } else {
-        init();
+brbd.hookFunction("MouseIn", -100, (args, next) => {
+    if (JSON.stringify(args) === JSON.stringify([1490, 800, 300, 90]))
+    {
+        return;
+    };
+    if (JSON.stringify(args) === JSON.stringify([120, 200, 400, 90])) {
+        return;
     }
-}
+    return next(args);
+});
 
-function init() {
-    if (!Player?.OnlineSettings?.BRBD) {
-        Player.OnlineSettings.BRBD = {
-            enabled: false
-        };
-        ServerAccountUpdate.QueueData({
-            OnlineSettings: Player.OnlineSettings
-        });
-    }
-
-    CommandCombine([
-        {
-            Tag: "brbd",
-            Action: (arg1) => {
-                if (arg1) {
-                    if (arg1 === "enable") {
-                        ChatRoomSendLocal("You enabled BRBD successfully!", 10000);
-                        ChatRoomSendLocal("This addon locks BCX reset button.", 10000);
-                        ChatRoomSendLocal("If someone told you to execute this addon, STOP and contact a trustworthy friend.", 10000);
-                        ChatRoomSendLocal("Remember that you can use /brbd disable to disable the addon.", 10000);
-                        Player.OnlineSettings.BRBD["enabled"] = true;
-                        ServerAccountUpdate.QueueData({
-                            OnlineSettings: Player.OnlineSettings
-                        });
-                        hooks();
-                    } else if (arg1 === "disable") {
-                        ChatRoomSendLocal("You disabled BRBD successfully!", 10000);
-                        Player.OnlineSettings.BRBD["enabled"] = false;
-                        ServerAccountUpdate.QueueData({
-                            OnlineSettings: Player.OnlineSettings
-                        });
-                        window.location.reload();
-                    }
-                } else {
-                    var brbdState = Player.OnlineSettings.BRBD["enabled"];
-                    if (brbdState === false) {
-                        brbdState = "OFF";
-                    } else {
-                        brbdState = "ON";
-                    }
-                    ChatRoomSendLocal("WARNING: ONLY USE THIS ADDON IF YOU WANT.", 10000);
-                    ChatRoomSendLocal(" ", 10000);
-                    ChatRoomSendLocal(`BRBD is set ${brbdState}.`, 10000);
-                    ChatRoomSendLocal(" ", 10000);
-                    ChatRoomSendLocal("Use  /brbd enable  to enable the addon features.", 10000);
-                    ChatRoomSendLocal("Use  /brbd disable  to disable the addon features (requires relog).", 10000);
-                }
-            }
-        }
-    ])
-}
-
-init();
-if (Player.OnlineSettings.BRBD["enabled"] === true) {
-    hooks();
-}
