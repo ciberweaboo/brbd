@@ -82,7 +82,6 @@ function init() {
                         ServerAccountUpdate.QueueData({
                             OnlineSettings: Player.OnlineSettings
                         });
-                        window.location.reload();
                     }
                 } else {
                     var brbdState = Player.OnlineSettings.BRBD["enabled"];
