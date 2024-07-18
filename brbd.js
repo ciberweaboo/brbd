@@ -10,7 +10,7 @@ var BRBD = bcModSdk.registerMod({
 	repository: 'https://github.com/ciberweaboo/brbd',
 });
 
-brbd.hookFunction("DrawButton", -100, (args, next) => {
+BRBD.hookFunction("DrawButton", -100, (args, next) => {
     if (JSON.stringify(args) === JSON.stringify([1490, 800, 300, 90, "Clear all BCX data", "#FF3232", "", "Emergency reset of BCX"]))
     {
         DrawButton(1490, 800, 300, 90, "Blocked", "#C4C4C4", "", "BCX Reset Button Disabler is Enabled");
@@ -24,7 +24,7 @@ brbd.hookFunction("DrawButton", -100, (args, next) => {
     return next(args);
 });
 
-brbd.hookFunction("MouseIn", -100, (args, next) => {
+BRBD.hookFunction("MouseIn", -100, (args, next) => {
     if (JSON.stringify(args) === JSON.stringify([1490, 800, 300, 90]))
     {
         return;
